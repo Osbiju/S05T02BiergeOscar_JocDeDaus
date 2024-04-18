@@ -7,8 +7,6 @@ import cat.itacademy.barcelonactiva.BiergeOscar.s05t02.model.exceptions.InvalidU
 import cat.itacademy.barcelonactiva.BiergeOscar.s05t02.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.BiergeOscar.s05t02.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.BiergeOscar.s05t02.model.service.implementations.PlayerServiceImpl;
-import cat.itacademy.barcelonactiva.BiergeOscar.s05t02.model.service.interfaces.PlayerService;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,13 +27,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) //allows to bring the mocks
 public class PlayerServiceUnitTest {
-    @Mock
+
+    @Mock //crea un objeto simulado que reemplaza al repositorio real durante las pruebas unitarias
     private PlayerRepository playerRepository;
-    @Mock
+
+    @Mock //imita el comportamiento del repositorio
+    //se interactua con objetos simulados (se configura el comportamiento de ese objeto utilizando metodos como when() y thenReturn() )
     private GameRepository gameRepository;
-    @InjectMocks
+
+    @InjectMocks //we inject the service
     private PlayerServiceImpl playerService;
 
     private PlayerDTO playerDTO;

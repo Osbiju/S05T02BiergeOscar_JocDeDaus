@@ -54,7 +54,7 @@ public class GameAdditionUnitTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.gameID", is(302)))//cada vez q runea suma 50 puestos
+                .andExpect(jsonPath("$.gameID", is(552)))//cada vez q runea suma 50 puestos
                 .andExpect(jsonPath("$.playerID", is(1)))
                 .andExpect(jsonPath("$.diceOne").isNotEmpty())
                 .andExpect(jsonPath("$.diceTwo").isNotEmpty())

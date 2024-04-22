@@ -48,8 +48,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO update(PlayerDTO playerDTO) {
-        findById(playerDTO.getId());
-        return toDTO(playerRepository.save(toEntity(playerDTO)));
+        PlayerDTO playerToUpdate = findById(playerDTO.getId());
+        playerToUpdate.setPlayerName(playerDTO.getPlayerName());
+        return toDTO(playerRepository.save(toEntity(playerToUpdate)));
     }
 
     @Override

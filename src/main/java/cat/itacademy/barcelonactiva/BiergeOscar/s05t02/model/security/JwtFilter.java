@@ -18,24 +18,27 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor //it will create a constr using a final field as atribut
 public class JwtFilter extends OncePerRequestFilter {
+    //we can use UserDetailsService from pringsecurity to not create UserService Class
     private final UserService userService;
     private final JwtService jwtService;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
-        final String jwt;
+        final String jwt;//jwtToken
         final String email;
 
         if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer")){
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authorizationHeader.substring(7);
-        email = jwtService.getUserName(jwt);
-        if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        //extract token from header
+        jwt = authorizationHeader.substring(7);//7 for the "Bearer "
+        email = jwtService.getUserName(jwt);//TO extract email from JWT token, we need jwtservice
+        if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){//if getAuthentication is null it means that is not yet authenticated
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(email);
             if(jwtService.validToken(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

@@ -54,6 +54,7 @@ public class SecurityConfiguration {
         return authenticationProvider;
     }
 
+    //responsable del manejo de autentificacion
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();

@@ -17,6 +17,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements JwtService {
+    //https://asecuritysite.com/encryption/plain
+    //it can be placed in properties too and here is needed:
+    //@Value("${token.signin.key}
     @Value("${token.signing.key}")
     private String SECRET_KEY;
 
@@ -46,7 +49,8 @@ public class JwtServiceImpl implements JwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000*60*60*24))
                 .and()
-                .signWith(getSigningKey(), Jwts.SIG.HS256).compact();
+                .signWith(getSigningKey(), Jwts.SIG.HS256)
+                .compact();//compact generate and return the token
     }
 
     private boolean isTokenExpired(String token){

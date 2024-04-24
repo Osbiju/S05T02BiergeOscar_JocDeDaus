@@ -24,6 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     @Override
     public AuthenticationResponse signUp(SignUpDTO request) {
         if(request.getEmail().isEmpty() || request.getPassword().isEmpty()){

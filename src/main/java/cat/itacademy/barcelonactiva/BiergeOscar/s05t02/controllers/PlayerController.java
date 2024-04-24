@@ -17,7 +17,7 @@ public class PlayerController {
     private PlayerService playerService;
 
     @PostMapping("/players")
-    public ResponseEntity<?> createPlayer(@RequestBody PlayerDTO playerDTO){
+    public ResponseEntity<?> createPlayer(@RequestBody PlayerDTO playerDTO){ //  TODO la logica ha de estar en el SERVICIO, asi el try catch queda en eL. EL CONTROLADOR NO SE OCUPA DE LOGICA SOLO RECIBE PETICIONE
         try {
             if (playerDTO.getPlayerName() == null || playerDTO.getPlayerName().isEmpty()) {
                 return ResponseEntity.badRequest().body("Player name cannot be empty");
@@ -34,7 +34,7 @@ public class PlayerController {
         } catch(PlayerAlreadyExistsException e) {
             System.out.println("Player creation failed: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Already exists a player with this name.");
-        } catch(Exception e) {
+        } catch(Exception e) { // TODO la excepocion intentar no ser generica, HANDLE EXCEPTION
             System.out.println("Player creation failed: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while creating the player: " + e.getMessage());
         }

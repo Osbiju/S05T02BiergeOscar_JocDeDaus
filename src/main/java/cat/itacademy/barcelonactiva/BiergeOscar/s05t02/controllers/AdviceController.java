@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-
+//controlador de excepciones
 @RestControllerAdvice
 public class AdviceController extends ResponseEntityExceptionHandler {
+
+    //Cada método anotado con @ExceptionHandler se ejecuta cuando ocurre la excepción correspondiente.
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

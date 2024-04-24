@@ -47,14 +47,16 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider(){//is the data access object which is responseble to fetch the userdetails, password...
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        //now we have to specify some properties to authProvider:
         authenticationProvider.setUserDetailsService(userService.userDetailsService());
+        //we need to provide a pw encoder
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
 
-    //responsable del manejo de autentificacion
+    //is the responsible to manage the authentication, have a bunch of methods, on of them allows/help us to authenticate user based/using username and password
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();

@@ -53,7 +53,7 @@ public class JwtServiceImpl implements JwtService {
                 .compact();//compact generate and return the token
     }
 
-    private boolean isTokenExpired(String token){
+    private boolean isTokenExpired(String token){ //if the token validates the userDetails
         return getExpiration(token).before(new Date());
     }
 
@@ -62,7 +62,12 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Claims getAllClaims(String token){
-        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
+        return Jwts
+                .parser()
+                .verifyWith(getSigningKey()) //signInKey is a secret key that is used to digitally sign the Jwt, is used to create the signature part of the jwt which is use to verify that the sender of jwt is who is claim to be and ensure that the message is not change along the way
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private SecretKey getSigningKey(){

@@ -26,7 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public AuthenticationResponse signUp(SignUpDTO request) {
+    public AuthenticationResponse signUp(SignUpDTO request) {//this register allows us to create a user, saved in the database and return the generated token out of it
         if(request.getEmail().isEmpty() || request.getPassword().isEmpty()){
             throw new IllegalArgumentException("Email and password can't be null.");
         }
